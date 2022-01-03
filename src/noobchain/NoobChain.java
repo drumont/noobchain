@@ -3,16 +3,17 @@ package noobchain;
 import java.security.Security;
 import java.util.ArrayList;
 import java.util.HashMap;
+import com.google.gson.GsonBuilder;
+
 
 public class NoobChain {
     public static ArrayList<Block> blockchain = new ArrayList<Block>();
     public static HashMap<String,TransactionOutput> UTXOs = new HashMap<String,TransactionOutput>(); //list of all unspent transactions.
-    public static int difficulty = 5;
+    public static int difficulty = 6;
     public static Wallet walletA;
     public static Wallet walletB;
     public static float minimumTransaction = 0.1f;
     public static Transaction genesisTransaction;
-
 
     public static void main(String[] args) {
         //add our blocks to the blockchain ArrayList:
@@ -94,7 +95,7 @@ public class NoobChain {
             for(int t=0; t <currentBlock.transactions.size(); t++) {
                 Transaction currentTransaction = currentBlock.transactions.get(t);
 
-                if(!currentTransaction.verifiySignature()) {
+                if(!currentTransaction.verifySignature()) {
                     System.out.println("#Signature on noobchain.Transaction(" + t + ") is Invalid");
                     return false;
                 }

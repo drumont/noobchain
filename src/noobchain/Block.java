@@ -7,12 +7,12 @@ public class Block {
 
     public String hash;
     public String previousHash;
+    public String merkleRoot;
     private String data;
     private long timeStamp;
     private int nonce;
     public ArrayList<Transaction> transactions = new ArrayList<Transaction>(); //our data will be a simple message.
 
-    // noobchain.Block constructor
     public Block(String previousHash) {
         this.data = data;
         this.previousHash = previousHash;
@@ -21,10 +21,11 @@ public class Block {
     }
 
     public String calculateHash() {
-        return StringUtil.applySha256(previousHash+Long.toString(timeStamp)+Integer.toString(nonce)+data);
+        return StringUtil.applySha256(previousHash + Long.toString(timeStamp) + Integer.toString(nonce) + data);
     }
 
     public void mineBlock(int difficulty){
+        merkleRoot = StringUtil.getMerkleRoot(transactions);
         String target = new String(new char[difficulty]).replace('\0', '0'); //Create a string with difficulty * "0"
         while(!hash.substring( 0, difficulty).equals(target)) {
             nonce ++;
@@ -47,4 +48,7 @@ public class Block {
         System.out.println("noobchain.Transaction Successfully added to noobchain.Block");
         return true;
     }
+
+
+
 }

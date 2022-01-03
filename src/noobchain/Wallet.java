@@ -13,7 +13,6 @@ public class Wallet {
 
     public HashMap<String,TransactionOutput> UTXOs = new HashMap<String,TransactionOutput>();
 
-
     public Wallet () {
         generateKeyPair();
     }
